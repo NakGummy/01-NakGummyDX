@@ -24,6 +24,9 @@ jobs:
         run: |
           cd /home/d-nak/miatiadev/01-NakGummyDX
           npm install
+
+          cd /home/d-nak/miatiadev/01-NakGummyDX/frontend
+          npm install
           npx tailwindcss init -p
 
       - name: Start Server
