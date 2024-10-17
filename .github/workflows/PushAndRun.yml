@@ -18,7 +18,7 @@ jobs:
       - name: Stop pm2 daemon
         run: |
           cd /home/d-nak/miatiadev/01-NakGummyDX
-          pm2 stop dev || ture
+          pm2 stop dev || true
 
       - name: Install Dependencies
         run: |
