@@ -10,6 +10,11 @@ jobs:
     runs-on: self-hosted
 
     steps:
+      - name: Kill pm2 daemon
+        run: |
+          cd /home/d-nak/miatiadev/01-NakGummyDX
+          pm2 kill
+
       - name: Update Repository
         run: |
           cd /home/d-nak/miatiadev/01-NakGummyDX
@@ -23,4 +28,4 @@ jobs:
       - name: Start Server
         run: |
           cd /home/d-nak/miatiadev/01-NakGummyDX
-          npm run dev
+          pm2 start npm --name dev --run dev
