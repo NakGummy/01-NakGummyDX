@@ -28,4 +28,4 @@ jobs:
       - name: Start Server
         run: |
           cd /home/d-nak/miatiadev/01-NakGummyDX
-          pm2 start npm --name dev --run dev
+          pm2 start npm --name dev -- run dev
