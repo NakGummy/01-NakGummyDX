@@ -1,1 +1,26 @@
+name: Auto Deploy
 
+on:
+  push:
+    branches:
+      - predev
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Update Repository
+        run: |
+          cd /home/d-nak/miatiadev/01-NakGummyDX
+          git pull origin predev
+
+      - name: Install Dependencies
+        run: |
+          cd /home/d-nak/miatiadev/01-NakGummyDX
+          npm install
+
+      - name: Start Server
+        run: |
+          cd /home/d-nak/miatiadev/01-NakGummyDX
+          npm run dev
