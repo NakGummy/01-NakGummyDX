@@ -10,15 +10,15 @@ jobs:
     runs-on: self-hosted
 
     steps:
-      - name: Stop pm2 daemon
-        run: |
-          cd /home/d-nak/miatiadev/01-NakGummyDX
-          pm2 stop dev || ture
-
       - name: Update Repository
         run: |
           cd /home/d-nak/miatiadev/01-NakGummyDX
           git pull origin predev
+
+      - name: Stop pm2 daemon
+        run: |
+          cd /home/d-nak/miatiadev/01-NakGummyDX
+          pm2 stop dev || ture
 
       - name: Install Dependencies
         run: |
@@ -28,4 +28,4 @@ jobs:
       - name: Start Server
         run: |
           cd /home/d-nak/miatiadev/01-NakGummyDX
-          pm2 restart dev || pm2 start npm --name dev -- run dev
+          pm2 start npm --name dev -- run dev
