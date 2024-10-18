@@ -71,22 +71,31 @@ const App: React.FC = () => {
     );
   };
 
-  // 再帰的にリストを描画
-  const renderNestedList = (parent: string | null = null): JSX.Element[] => {
-    // 親が一致するページ（トップレベルはparentがnull）
-    const filteredRoutes = routes.filter((route) => route.parent === parent);
-
-    return filteredRoutes.map((page) => (
-      <li key={page.path}>
-        <div className="font-bold">
-          <Link to={page.path}>{page.name}</Link>
-        </div>
-        {/* サブページがあるかどうか確認し、あれば再帰的に描画 */}
-        <ul className="ml-4">
-          {renderNestedList(page.path)} {/* 再帰的にサブフォルダの描画 */}
-        </ul>
-      </li>
-    ));
+  // サブフォルダがある場合に階層を表示
+  const renderList = () => {
+    const parentPages = routes.filter((route) => !route.parent); // 親ページをフィルタリング
+    return (
+      <ul>
+        {parentPages.map((page) => (
+          <li key={page.path}>
+            {/* 親ページをリンクにする */}
+            <div className="font-bold">
+              <Link to={page.path}>{page.name}</Link>
+            </div>
+            {/* サブページを探して表示 */}
+            <ul className="ml-4">
+              {routes
+                .filter((subPage) => subPage.parent === page.name.toLowerCase())
+                .map((subPage) => (
+                  <li key={subPage.path}>
+                    <Link to={subPage.path}>{subPage.name}</Link>
+                  </li>
+                ))}
+            </ul>
+          </li>
+        ))}
+      </ul>
+    );
   };
 
   return (
@@ -107,9 +116,9 @@ const App: React.FC = () => {
         </Routes>
       </div>
 
-      {/* 再帰的リスト表示 */}
+      {/* リスト表示 */}
       <div className="flex text-blue-600 dark:text-blue-500">
-        <ul>{renderNestedList()}</ul> {/* トップレベルから再帰的に表示 */}
+        {renderList()}
       </div>
     </div>
   );
